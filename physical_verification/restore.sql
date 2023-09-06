@@ -1,7 +1,7 @@
 --
 -- NOTE:
 --
--- File paths need to be edited. Search for $$PATH$$ and
+-- File paths need to be edited. Search for /data/physical_verification and
 -- replace it with the path to the directory containing
 -- the extracted data files.
 --
@@ -684,7 +684,7 @@ ALTER TABLE ONLY public.verification_documents_verificationdocument ALTER COLUMN
 
 COPY public.auth_group (id, name) FROM stdin;
 \.
-COPY public.auth_group (id, name) FROM '$$PATH$$/3426.dat';
+COPY public.auth_group (id, name) FROM '/data/physical_verification/3426.dat';
 
 --
 -- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -692,7 +692,7 @@ COPY public.auth_group (id, name) FROM '$$PATH$$/3426.dat';
 
 COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
 \.
-COPY public.auth_group_permissions (id, group_id, permission_id) FROM '$$PATH$$/3428.dat';
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM '/data/physical_verification/3428.dat';
 
 --
 -- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -700,7 +700,7 @@ COPY public.auth_group_permissions (id, group_id, permission_id) FROM '$$PATH$$/
 
 COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 \.
-COPY public.auth_permission (id, name, content_type_id, codename) FROM '$$PATH$$/3425.dat';
+COPY public.auth_permission (id, name, content_type_id, codename) FROM '/data/physical_verification/3425.dat';
 
 --
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -708,7 +708,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM '$$PATH$$
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 \.
-COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM '$$PATH$$/3429.dat';
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM '/data/physical_verification/3429.dat';
 
 --
 -- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -716,7 +716,7 @@ COPY public.auth_user (id, password, last_login, is_superuser, username, first_n
 
 COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
 \.
-COPY public.auth_user_groups (id, user_id, group_id) FROM '$$PATH$$/3431.dat';
+COPY public.auth_user_groups (id, user_id, group_id) FROM '/data/physical_verification/3431.dat';
 
 --
 -- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -724,7 +724,7 @@ COPY public.auth_user_groups (id, user_id, group_id) FROM '$$PATH$$/3431.dat';
 
 COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 \.
-COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM '$$PATH$$/3433.dat';
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM '/data/physical_verification/3433.dat';
 
 --
 -- Data for Name: customers_customer; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -732,7 +732,7 @@ COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM '$$PATH
 
 COPY public.customers_customer (id, datetime_created, datetime_updated, first_name, last_name, mobile) FROM stdin;
 \.
-COPY public.customers_customer (id, datetime_created, datetime_updated, first_name, last_name, mobile) FROM '$$PATH$$/3441.dat';
+COPY public.customers_customer (id, datetime_created, datetime_updated, first_name, last_name, mobile) FROM '/data/physical_verification/3441.dat';
 
 --
 -- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -740,7 +740,7 @@ COPY public.customers_customer (id, datetime_created, datetime_updated, first_na
 
 COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
 \.
-COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM '$$PATH$$/3435.dat';
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM '/data/physical_verification/3435.dat';
 
 --
 -- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -748,7 +748,7 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 
 COPY public.django_content_type (id, app_label, model) FROM stdin;
 \.
-COPY public.django_content_type (id, app_label, model) FROM '$$PATH$$/3424.dat';
+COPY public.django_content_type (id, app_label, model) FROM '/data/physical_verification/3424.dat';
 
 --
 -- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -756,7 +756,7 @@ COPY public.django_content_type (id, app_label, model) FROM '$$PATH$$/3424.dat';
 
 COPY public.django_migrations (id, app, name, applied) FROM stdin;
 \.
-COPY public.django_migrations (id, app, name, applied) FROM '$$PATH$$/3423.dat';
+COPY public.django_migrations (id, app, name, applied) FROM '/data/physical_verification/3423.dat';
 
 --
 -- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -764,7 +764,7 @@ COPY public.django_migrations (id, app, name, applied) FROM '$$PATH$$/3423.dat';
 
 COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
 \.
-COPY public.django_session (session_key, session_data, expire_date) FROM '$$PATH$$/3448.dat';
+COPY public.django_session (session_key, session_data, expire_date) FROM '/data/physical_verification/3448.dat';
 
 --
 -- Data for Name: employees_employee; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -772,7 +772,7 @@ COPY public.django_session (session_key, session_data, expire_date) FROM '$$PATH
 
 COPY public.employees_employee (id, datetime_created, datetime_updated, first_name, last_name, mobile, role_id) FROM stdin;
 \.
-COPY public.employees_employee (id, datetime_created, datetime_updated, first_name, last_name, mobile, role_id) FROM '$$PATH$$/3445.dat';
+COPY public.employees_employee (id, datetime_created, datetime_updated, first_name, last_name, mobile, role_id) FROM '/data/physical_verification/3445.dat';
 
 --
 -- Data for Name: employees_role; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -780,7 +780,7 @@ COPY public.employees_employee (id, datetime_created, datetime_updated, first_na
 
 COPY public.employees_role (id, datetime_created, datetime_updated, role) FROM stdin;
 \.
-COPY public.employees_role (id, datetime_created, datetime_updated, role) FROM '$$PATH$$/3443.dat';
+COPY public.employees_role (id, datetime_created, datetime_updated, role) FROM '/data/physical_verification/3443.dat';
 
 --
 -- Data for Name: loan_applications_loanapplication; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -788,7 +788,7 @@ COPY public.employees_role (id, datetime_created, datetime_updated, role) FROM '
 
 COPY public.loan_applications_loanapplication (id, datetime_created, datetime_updated, status, verification_status, manager_id, reviewer_id, loan_amount, customer_id, verifier_id) FROM stdin;
 \.
-COPY public.loan_applications_loanapplication (id, datetime_created, datetime_updated, status, verification_status, manager_id, reviewer_id, loan_amount, customer_id, verifier_id) FROM '$$PATH$$/3447.dat';
+COPY public.loan_applications_loanapplication (id, datetime_created, datetime_updated, status, verification_status, manager_id, reviewer_id, loan_amount, customer_id, verifier_id) FROM '/data/physical_verification/3447.dat';
 
 --
 -- Data for Name: verification_documents_verificationdocument; Type: TABLE DATA; Schema: public; Owner: postgres
@@ -796,7 +796,7 @@ COPY public.loan_applications_loanapplication (id, datetime_created, datetime_up
 
 COPY public.verification_documents_verificationdocument (id, datetime_created, datetime_updated, document_type, loan_application_id, file_path) FROM stdin;
 \.
-COPY public.verification_documents_verificationdocument (id, datetime_created, datetime_updated, document_type, loan_application_id, file_path) FROM '$$PATH$$/3450.dat';
+COPY public.verification_documents_verificationdocument (id, datetime_created, datetime_updated, document_type, loan_application_id, file_path) FROM '/data/physical_verification/3450.dat';
 
 --
 -- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
