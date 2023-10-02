@@ -13,3 +13,17 @@ docker-compose up -d
 ```sh
 psql --host=localhost -U postgres -W  -f physical_verification/restore.sql
 ```
+
+## Setting up local environment
+
+- Create virtual environment
+
+```bash
+python -m venv venv
+```
+
+- Run Script for installing dependencies
+
+```sh
+bash install-deps.sh
+```
