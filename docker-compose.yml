@@ -10,7 +10,7 @@ services:
       PGDATA: /data/postgres
     volumes:
        - postgres:/data/postgres
-       - ./physical_verification:/data/physical_verification/
+       - ./physical_verification_data:/data/physical_verification_data/
     ports:
       - "5432:5432"
     networks:
