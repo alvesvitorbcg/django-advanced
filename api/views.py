@@ -39,3 +39,21 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     queryset = models.LoanApplication.objects.all()
     serializer_class = serializers.LoanApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class EmployeeViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = models.Employee.objects.all()
+    serializer_class = serializers.EmployeeSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class RoleViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = models.Role.objects.all()
+    serializer_class = serializers.RoleSerializer
+    permission_classes = [permissions.IsAuthenticated]

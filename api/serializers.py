@@ -25,3 +25,15 @@ class LoanApplicationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.LoanApplication
         fields = '__all__'
+
+
+class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Employee
+        fields = '__all__'
+
+
+class RoleSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = models.Role
+        fields = '__all__'

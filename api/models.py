@@ -4,8 +4,8 @@ from django.db import models
 
 
 class BaseModel(models.Model):
-    datetime_created = models.DateTimeField(auto_now_add=True)
-    datetime_updated = models.DateTimeField(auto_now=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    date_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -13,11 +13,12 @@ class BaseModel(models.Model):
 
 class Person(BaseModel):
     first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100, default=None)
     last_name = models.CharField(max_length=100)
     mobile = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.first_name + ' ' + self.last_name
 
     class Meta:
         abstract = True
@@ -29,10 +30,10 @@ class Customer(Person):
 
 
 class Role(BaseModel):
-    role = models.IntegerField()
+    role_type = models.CharField(default=None, max_length=100)
 
     def __str__(self):
-        return self.role
+        return self.role_type
 
 
 class Employee(Person):
