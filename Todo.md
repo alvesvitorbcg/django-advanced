@@ -5,9 +5,9 @@
 
 ## Models
 
-- Create Customer Model
-- Create Employee Model
-- Create Role Model
+- OK Create Customer Model
+- OK Create Employee Model
+- OK Create Role Model
 - Create Verification Document Model
 - Create Loan Application Model
 - Create Loan Application History Model
