@@ -8,9 +8,9 @@
 - OK Create Customer Model
 - OK Create Employee Model
 - OK Create Role Model
-- Create Verification Document Model
-- Create Loan Application Model
-- Create Loan Application History Model
+- OK Create Verification Document Model
+- OK Create Loan Application Model
+- TODO Create Loan Application History Model
 
 ## Endpoints
 
