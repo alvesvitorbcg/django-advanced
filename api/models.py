@@ -4,9 +4,8 @@ from django.db import models
 
 
 class BaseModel(models.Model):
-    id = models.IntegerField(primary_key=True)
     datetime_created = models.DateTimeField(auto_now_add=True)
-    datetime_updated = models.DateTimeField(auto_now_add=True)
+    datetime_updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         abstract = True
@@ -26,14 +25,14 @@ class Person(BaseModel):
 
 class Customer(Person):
     def __str__(self):
-        return self.id
+        return self.first_name
 
 
 class Role(BaseModel):
     role = models.IntegerField()
 
     def __str__(self):
-        return self.id
+        return self.role
 
 
 class Employee(Person):
