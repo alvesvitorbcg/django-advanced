@@ -1,5 +1,5 @@
 from django.db import models
-
+from enum import Enum
 # Create your models here.
 
 
@@ -40,10 +40,24 @@ class Employee(Person):
     role_id = models.ForeignKey(Role, on_delete=models.CASCADE)
 
 
+class Status(Enum):
+    NEW = 0
+    APPROVED = 1
+    REJECTED = 2
+
+
+class VerificationStatus(Enum):
+    PENDING = 0
+    ASSIGNED = 1
+    VERIFIED = 2
+    FAILED = 3
+
+
 class LoanApplication(BaseModel):
 
-    status = models.IntegerField()
-    verification_status = models.IntegerField()
+    status = models.IntegerField(default=Status.NEW.value)
+    verification_status = models.IntegerField(
+        default=VerificationStatus.PENDING.value, editable=False)
     reviewer = models.ForeignKey(
         Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewer')
     manager = models.ForeignKey(

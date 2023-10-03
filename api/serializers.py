@@ -21,7 +21,7 @@ class CustomerSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
-class LoanApplicationSerializer(serializers.HyperlinkedModelSerializer):
+class LoanApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.LoanApplication
         fields = '__all__'
