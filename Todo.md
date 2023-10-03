@@ -15,9 +15,9 @@
 ## Endpoints
 
 - OK Create Endpoint For inserting new Customer
-- WIP Create Endpoint For inserting new Loan Application
-  - status can't be an input, it should be set to new
-  - verification_status can't be an input, it should be set to pending
+- OK Create Endpoint For inserting new Loan Application
+  - OK status can't be an input, it should be set to new
+  - OK verification_status can't be an input, it should be set to pending
 - OK Create Endpoint to list Loan Applications
 
 - WIP Create Endpoint For updating Loan Application:

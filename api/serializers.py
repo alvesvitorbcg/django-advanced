@@ -26,6 +26,15 @@ class LoanApplicationSerializer(serializers.ModelSerializer):
         model = models.LoanApplication
         fields = '__all__'
 
+    def create(self, validated_data):
+        validated_data.pop('verification_status', None)
+        validated_data.pop('status', None)
+        validated_data.pop('reviewer', None)
+        validated_data.pop('verifier', None)
+        loan_application = models.LoanApplication.objects.create(
+            **validated_data)
+        return loan_application
+
 
 class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
