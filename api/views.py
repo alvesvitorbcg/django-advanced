@@ -30,3 +30,12 @@ class CustomerViewSet(viewsets.ModelViewSet):
     queryset = models.Customer.objects.all()
     serializer_class = serializers.CustomerSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class LoanApplicationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = models.LoanApplication.objects.all()
+    serializer_class = serializers.LoanApplicationSerializer
+    permission_classes = [permissions.IsAuthenticated]
