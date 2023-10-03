@@ -1,7 +1,7 @@
 ## Boilerplate
 
-- Create Django application
-- Install Rest framework
+- OK Create Django application
+- OK Install Rest framework
 
 ## Models
 
@@ -15,7 +15,6 @@
 ## Endpoints
 
 - Create Endpoint For inserting new Customer
-  -
 - Create Endpoint For inserting new Loan Application
   - status: new
   - verification_status: pending
