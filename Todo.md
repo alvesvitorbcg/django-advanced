@@ -10,20 +10,21 @@
 - OK Create Role Model
 - OK Create Verification Document Model
 - OK Create Loan Application Model
-- TODO Create Loan Application History Model
+- OK Create Loan Application History Model
 
 ## Endpoints
 
-- OK Create Endpoint For inserting new Customer
-- OK Create Endpoint For inserting new Loan Application
-  - OK status can't be an input, it should be set to new
-  - OK verification_status can't be an input, it should be set to pending
-- OK Create Endpoint to list Loan Applications
+- OK Implement ModelViewSet for all models
 
-- WIP Create Endpoint For updating Loan Application:
-  - OK assign Verifier
-    - OK change status to Assigned
-  - change Verification Status to Verified and insert Verification Document
-  - OK assign Reviewer
-  - OK Change Status to Approved, Rejected or New
-  - it shuold save a history of changes
+- WIP Endpoint For inserting new Loan Application
+
+  - OK status should be set to new
+  - OK verification_status should be set to pending
+
+- WIP Endpoint For updating Loan Application:
+  - OK can only set verification status to 'Assigned' if verifier is defined
+  - OK can only set verification status to 'Verified' or 'Failed' if a Verifier had been previously assigned
+  - OK can only set status to 'Approved' or 'Rejected' if a reviewer and a verifier had been previouly assigned and the verification status is 'Verified'
+  - OK assign Verifier should change status to Assigned
+  - OK can only set verification status to Verified if there is Verification Document
+  - it should save a history of changes

@@ -39,7 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_spectacular',
-    'api'
+    'api',
+    'core',
+    'loan_application',
+    'verification_document',
+    'employee',
+    'customer',
 
 ]
 
