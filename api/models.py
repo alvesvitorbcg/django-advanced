@@ -57,7 +57,7 @@ class LoanApplication(BaseModel):
 
     status = models.IntegerField(default=Status.NEW.value)
     verification_status = models.IntegerField(
-        default=VerificationStatus.PENDING.value, editable=False)
+        default=VerificationStatus.PENDING.value)
     reviewer = models.ForeignKey(
         Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='reviewer')
     manager = models.ForeignKey(

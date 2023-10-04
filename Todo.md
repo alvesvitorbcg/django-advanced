@@ -21,9 +21,9 @@
 - OK Create Endpoint to list Loan Applications
 
 - WIP Create Endpoint For updating Loan Application:
-  - assign Verifier
-    - change status to Assigned
+  - OK assign Verifier
+    - OK change status to Assigned
   - change Verification Status to Verified and insert Verification Document
-  - assign Reviewer
-  - Change Status to Approved, Rejected or New
+  - OK assign Reviewer
+  - OK Change Status to Approved, Rejected or New
   - it shuold save a history of changes
