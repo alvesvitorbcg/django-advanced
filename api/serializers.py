@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from api import models
-from api.models import LoanApplication, VerificationDocument, VerificationStatus, Customer, Employee, Role, Status
+from core.models import LoanApplication, VerificationDocument, VerificationStatus, Customer, Employee, Role, Status
 
 
 class BadRequest(BaseException):

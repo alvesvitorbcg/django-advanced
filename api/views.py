@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, status as rest_status, serializers as rest_serializers
 from rest_framework.response import Response
 from api import serializers
-from api import models
+from core import models
 
 
 def is_result_status(status):
