@@ -2,7 +2,7 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from employee.models import Employee, Role
 from customer.models import Customer
-from loan_application.models import LoanApplication, Status, VerificationStatus
+from loan_application.models import LoanApplication
 from verification_document.models import VerificationDocument
 
 
@@ -26,17 +26,6 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
-
-
-def is_changing_status_forward(validated_data):
-    status = validated_data.get('status')
-    return status is Status.APPROVED.value or status is Status.REJECTED.value
-
-
-def should_not_have_status_moved_forward(instance):
-    return (instance.verifier is None or
-            instance.reviewer is None or
-            instance.verification_status is not VerificationStatus.VERIFIED.value)
 
 
 class LoanApplicationSerializer(serializers.ModelSerializer):

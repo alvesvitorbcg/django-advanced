@@ -21,28 +21,21 @@ from rest_framework import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from customer.views import CustomerViewSet
 from employee.views import EmployeeViewSet, RoleViewSet
-from api.views import UserViewSet, GroupViewSet
 from loan_application.views import LoanApplicationViewSet
 from verification_document.views import VerificationDocumentViewSet
-
 router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'groups', GroupViewSet)
+
 router.register(r'customers', CustomerViewSet)
 router.register(r'loan-applications', LoanApplicationViewSet)
 router.register(r'verification-documents', VerificationDocumentViewSet)
 router.register(r'roles', RoleViewSet)
 router.register(r'employees', EmployeeViewSet)
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    # YOUR PATTERNS
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
-    # Optional UI:
     path('api/schema/swagger-ui/',
          SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('api/schema/redoc/',
