@@ -68,6 +68,18 @@ class LoanApplication(BaseModel):
     verifier = models.ForeignKey(
         Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='verifier')
 
+    @property
+    def has_verifier(self):
+        return self.verifier is not None
+
+    @property
+    def has_reviewer(self):
+        return self.reviewer is not None
+
+    @property
+    def is_verification_status_verified(self):
+        return self.verification_status is VerificationStatus.VERIFIED.value
+
 
 class LoanApplicationHistory(LoanApplication):
     loan_application = models.ForeignKey(
