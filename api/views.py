@@ -113,13 +113,13 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
                     {"detail": "Verification status can only be 'Verified' if there is at least one verification document."},
                 )
 
-        # if instance.verification_status is models.VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
-        #     serializer.save(
-        #         status=models.Status.NEW.value,
-        #         verification_status=models.VerificationStatus.ASSIGNED.value,
-        #         reviewer=None,
-        #         verifier=verifier,
-        #     )
+        if instance.verification_status is models.VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
+            serializer.save(
+                status=models.Status.NEW.value,
+                verification_status=models.VerificationStatus.ASSIGNED.value,
+                reviewer=None,
+                verifier=verifier,
+            )
 
         # TODO: Check if the other fields are being updated
         if status is models.Status.NEW.value:
