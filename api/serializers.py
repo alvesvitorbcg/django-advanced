@@ -91,6 +91,12 @@ class EmployeeSerializer(serializers.HyperlinkedModelSerializer):
         fields = '__all__'
 
 
+class VerificationDocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VerificationDocument
+        fields = '__all__'
+
+
 class RoleSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Role

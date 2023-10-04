@@ -78,6 +78,7 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     def perform_update(self, serializer):
         instance = serializer.instance
         verifier = serializer.validated_data.get('verifier')
+        reviewer = serializer.validated_data.get('reviewer')
         verification_status = serializer.validated_data.get(
             'verification_status')
         status = serializer.validated_data.get(
@@ -98,14 +99,19 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
                 {"detail": "Status can only be 'Approved' or 'Rejected' if a reviewer and a verifier had been previouly assigned and the verification status is 'Verified'."},
             )
 
-        # if is_verified(verification_status):
-        #     verification_documents = models.VerificationDocument.objects.filter(
-        #         loan_application=instance)
+        if reviewer is not None and not instance.has_reviewer and not instance.is_verification_status_verified:
+            raise rest_serializers.ValidationError(
+                {"detail": "Reviewer can only be assigned if the verification status is 'Verified'."},
+            )
 
-        #     if len(verification_documents) == 0:
-        #         raise rest_serializers.ValidationError(
-        #             {"detail": "Verification status can only be 'Verified' if there is at least one verification document."},
-        #         )
+        if is_verified(verification_status):
+            verification_documents = models.VerificationDocument.objects.filter(
+                loan_application=instance)
+
+            if len(verification_documents) == 0:
+                raise rest_serializers.ValidationError(
+                    {"detail": "Verification status can only be 'Verified' if there is at least one verification document."},
+                )
 
         # if instance.verification_status is models.VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
         #     serializer.save(
@@ -127,16 +133,25 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows employees to be viewed or edited.
     """
     queryset = models.Employee.objects.all()
     serializer_class = serializers.EmployeeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
+class VerificationDocumentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows verification documents to be viewed or edited.
+    """
+    queryset = models.VerificationDocument.objects.all()
+    serializer_class = serializers.VerificationDocumentSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
 class RoleViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows roles to be viewed or edited.
     """
     queryset = models.Role.objects.all()
     serializer_class = serializers.RoleSerializer
