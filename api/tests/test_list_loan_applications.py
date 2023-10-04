@@ -4,6 +4,7 @@ from django.test import TestCase
 from django.urls import reverse
 from api import serializers
 from core import models
+from loan_application.models import LoanApplication
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -62,7 +63,7 @@ def create_loan_application(**params):
         "verifier": None
     }
     defaults.update(params)
-    loan_application = models.LoanApplication.objects.create(**defaults)
+    loan_application = LoanApplication.objects.create(**defaults)
     return loan_application
 
 
@@ -77,7 +78,7 @@ class ListLoanApplicationApiTests(TestCase):
 
         res = self.client.get(LOAN_APPLICATIONS_URL)
 
-        loan_applications = models.LoanApplication.objects.all()
+        loan_applications = LoanApplication.objects.all()
         serializer = serializers.LoanApplicationSerializer(
             loan_applications, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)

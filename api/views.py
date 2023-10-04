@@ -3,6 +3,8 @@ from rest_framework import viewsets, permissions, status as rest_status, seriali
 from rest_framework.response import Response
 from api import serializers
 from core import models
+from loan_application.models import LoanApplication
+from verification_document.models import VerificationDocument
 
 
 def is_result_status(status):
@@ -59,7 +61,7 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = models.LoanApplication.objects.all()
+    queryset = LoanApplication.objects.all()
     serializer_class = serializers.LoanApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -144,7 +146,7 @@ class VerificationDocumentViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows verification documents to be viewed or edited.
     """
-    queryset = models.VerificationDocument.objects.all()
+    queryset = VerificationDocument.objects.all()
     serializer_class = serializers.VerificationDocumentSerializer
     permission_classes = [permissions.IsAuthenticated]
 

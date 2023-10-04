@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'api',
     'core',
-    'loan_application'
+    'loan_application',
+    'verification_document',
 
 ]
 
