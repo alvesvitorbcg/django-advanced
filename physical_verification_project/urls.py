@@ -18,17 +18,21 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include, path
 from rest_framework import routers
-from api import views
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from customer.views import CustomerViewSet
+from employee.views import EmployeeViewSet, RoleViewSet
+from api.views import UserViewSet, GroupViewSet
+from loan_application.views import LoanApplicationViewSet
+from verification_document.views import VerificationDocumentViewSet
 
 router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'groups', views.GroupViewSet)
-router.register(r'customers', views.CustomerViewSet)
-router.register(r'loan-applications', views.LoanApplicationViewSet)
-router.register(r'verification-documents', views.VerificationDocumentViewSet)
-router.register(r'roles', views.RoleViewSet)
-router.register(r'employees', views.EmployeeViewSet)
+router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
+router.register(r'customers', CustomerViewSet)
+router.register(r'loan-applications', LoanApplicationViewSet)
+router.register(r'verification-documents', VerificationDocumentViewSet)
+router.register(r'roles', RoleViewSet)
+router.register(r'employees', EmployeeViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
