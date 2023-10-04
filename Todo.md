@@ -14,16 +14,14 @@
 
 ## Endpoints
 
-- OK Create Endpoint For inserting new Customer
-- OK Create Endpoint For inserting new Loan Application
-  - OK status can't be an input, it should be set to new
-  - OK verification_status can't be an input, it should be set to pending
-- OK Create Endpoint to list Loan Applications
+- OK Implement ModelViewSet for all models
 
-- WIP Create Endpoint For updating Loan Application:
-  - OK assign Verifier
-    - OK change status to Assigned
+- WIP Endpoint For inserting new Loan Application
+
+  - status can't be an input, OK it should be set to new
+  - verification_status can't be an input, OK it should be set to pending
+
+- WIP Endpoint For updating Loan Application:
+  - assign Verifier should change status to Assigned
   - change Verification Status to Verified and insert Verification Document
-  - OK assign Reviewer
-  - OK Change Status to Approved, Rejected or New
-  - it shuold save a history of changes
+  - it should save a history of changes
