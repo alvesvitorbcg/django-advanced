@@ -1,16 +1,8 @@
-
 from django.contrib.auth import get_user_model
-from django.test import TestCase
-from django.urls import reverse
-from api import serializers
+
 from loan_application.models import LoanApplication
-from rest_framework import status
-from rest_framework.test import APIClient
 from customer.models import Customer
 from employee.models import Employee, Role
-
-
-LOAN_APPLICATIONS_URL = reverse('loanapplication-list')
 
 
 def create_user(email='sample@example.com', password='passtest123'):
@@ -66,25 +58,3 @@ def create_loan_application(**params):
     defaults.update(params)
     loan_application = LoanApplication.objects.create(**defaults)
     return loan_application
-
-
-class ListLoanApplicationApiTests(TestCase):
-    def setUp(self):
-        self.client = APIClient()
-        self.user = create_user()
-        self.client.force_authenticate(self.user)
-
-    def test_should_list(self):
-        create_loan_application()
-
-        res = self.client.get(LOAN_APPLICATIONS_URL)
-
-        loan_applications = LoanApplication.objects.all()
-        serializer = serializers.LoanApplicationSerializer(
-            loan_applications, many=True)
-
-        self.assertEqual(res.status_code, status.HTTP_200_OK)
-        self.assertEqual(res.data['count'], 1)
-        self.assertEqual(res.data['next'], None)
-        self.assertEqual(res.data['previous'], None)
-        self.assertEqual(res.data['results'], serializer.data)

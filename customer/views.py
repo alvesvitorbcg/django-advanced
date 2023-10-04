@@ -5,7 +5,7 @@ from customer.models import Customer
 
 class CustomerViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows customers to be viewed or edited.
     """
     queryset = Customer.objects.all()
     serializer_class = serializers.CustomerSerializer
