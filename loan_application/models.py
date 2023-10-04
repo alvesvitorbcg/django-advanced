@@ -1,6 +1,8 @@
 from enum import Enum
 from django.db import models
-from core.models import BaseModel, Customer, Employee
+from core.models import BaseModel
+from customer.models import Customer
+from employee.models import Employee
 
 
 class Status(Enum):

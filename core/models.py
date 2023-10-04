@@ -20,20 +20,3 @@ class Person(BaseModel):
 
     class Meta:
         abstract = True
-
-
-class Customer(Person):
-    # TODO: verify how to define a class that inhertis from another class and doesnt define anything else
-    def __str__(self):
-        return self.first_name
-
-
-class Role(BaseModel):
-    role_type = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.role_type
-
-
-class Employee(Person):
-    role = models.ForeignKey(Role, on_delete=models.CASCADE)

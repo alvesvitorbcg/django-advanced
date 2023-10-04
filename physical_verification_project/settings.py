@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'core',
     'loan_application',
     'verification_document',
+    'employee',
+    'customer',
 
 ]
 

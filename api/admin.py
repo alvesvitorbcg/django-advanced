@@ -1,8 +1,9 @@
 from django.contrib import admin
-from core import models
 from loan_application.models import LoanApplication
+from customer.models import Customer
+from employee.models import Employee, Role
 
-admin.site.register(models.Customer)
+admin.site.register(Customer)
 admin.site.register(LoanApplication)
-admin.site.register(models.Employee)
-admin.site.register(models.Role)
+admin.site.register(Employee)
+admin.site.register(Role)

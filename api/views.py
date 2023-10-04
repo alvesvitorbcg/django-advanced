@@ -1,9 +1,10 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets, permissions, serializers as rest_serializers
 from api import serializers
-from core import models
 from loan_application.models import LoanApplication, Status, VerificationStatus
 from verification_document.models import VerificationDocument
+from employee.models import Employee, Role
+from customer.models import Customer
 
 
 def is_result_status(status):
@@ -32,7 +33,7 @@ class CustomerViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
-    queryset = models.Customer.objects.all()
+    queryset = Customer.objects.all()
     serializer_class = serializers.CustomerSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -106,7 +107,7 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
             )
 
         if is_verified(verification_status):
-            verification_documents = models.VerificationDocument.objects.filter(
+            verification_documents = VerificationDocument.objects.filter(
                 loan_application=instance)
 
             if len(verification_documents) == 0:
@@ -136,7 +137,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows employees to be viewed or edited.
     """
-    queryset = models.Employee.objects.all()
+    queryset = Employee.objects.all()
     serializer_class = serializers.EmployeeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -154,6 +155,6 @@ class RoleViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows roles to be viewed or edited.
     """
-    queryset = models.Role.objects.all()
+    queryset = Role.objects.all()
     serializer_class = serializers.RoleSerializer
     permission_classes = [permissions.IsAuthenticated]

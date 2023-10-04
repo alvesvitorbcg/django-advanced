@@ -3,10 +3,11 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
 from api import serializers
-from core import models
 from loan_application.models import LoanApplication
 from rest_framework import status
 from rest_framework.test import APIClient
+from customer.models import Customer
+from employee.models import Employee, Role
 
 
 LOAN_APPLICATIONS_URL = reverse('loanapplication-list')
@@ -21,7 +22,7 @@ def create_role(**params):
         "role_type": "Manager"
     }
     defaults.update(params)
-    return models.Role.objects.create(**defaults)
+    return Role.objects.create(**defaults)
 
 
 def create_employee(**params):
@@ -34,7 +35,7 @@ def create_employee(**params):
         "role": role
     }
     defaults.update(params)
-    return models.Employee.objects.create(**defaults)
+    return Employee.objects.create(**defaults)
 
 
 def create_customer(**params):
@@ -45,7 +46,7 @@ def create_customer(**params):
         "mobile": "31996145581"
     }
     defaults.update(params)
-    return models.Customer.objects.create(**defaults)
+    return Customer.objects.create(**defaults)
 
 
 def create_loan_application(**params):
