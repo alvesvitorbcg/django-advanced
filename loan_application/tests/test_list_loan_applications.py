@@ -75,16 +75,16 @@ class ListLoanApplicationApiTests(TestCase):
         self.client.force_authenticate(self.user)
 
     def test_should_list(self):
-        create_loan_application(loan_amount=22)
+        create_loan_application()
 
         res = self.client.get(LOAN_APPLICATIONS_URL)
 
         loan_applications = LoanApplication.objects.all()
         serializer = serializers.LoanApplicationSerializer(
             loan_applications, many=True)
+
         self.assertEqual(res.status_code, status.HTTP_200_OK)
-        # self.assertEqual(res.data, serializer.data)
-        # self.assertEqual(res.data['count'], 1)
-        # self.assertEqual(res.data['next'], None)
-        # self.assertEqual(res.data['previous'], None)
+        self.assertEqual(res.data['count'], 1)
+        self.assertEqual(res.data['next'], None)
+        self.assertEqual(res.data['previous'], None)
         self.assertEqual(res.data['results'], serializer.data)
