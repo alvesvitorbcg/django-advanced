@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from loan_application.models import LoanApplication
 from customer.models import Customer
 from employee.models import Employee, Role
+from verification_document.models import VerificationDocument
 
 
 def create_user(email='sample@example.com', password='passtest123'):
@@ -15,6 +16,16 @@ def create_role(**params):
     }
     defaults.update(params)
     return Role.objects.create(**defaults)
+
+
+def create_verification_document(loan_application, **params):
+    defaults = {
+        "document_type": 1,
+        "file_path": "path/to/file.pdf",
+        "loan_application": loan_application
+    }
+    defaults.update(params)
+    return VerificationDocument.objects.create(**defaults)
 
 
 def create_employee(**params):
