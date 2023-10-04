@@ -54,6 +54,8 @@ class VerificationStatus(Enum):
 
 
 class LoanApplication(BaseModel):
+    class Meta:
+        ordering = ['-id']
 
     status = models.IntegerField(default=Status.NEW.value)
     verification_status = models.IntegerField(

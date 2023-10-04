@@ -27,6 +27,8 @@ router.register(r'groups', views.GroupViewSet)
 router.register(r'customers', views.CustomerViewSet)
 router.register(r'loan-applications', views.LoanApplicationViewSet)
 router.register(r'verification-documents', views.VerificationDocumentViewSet)
+router.register(r'roles', views.RoleViewSet)
+router.register(r'employees', views.EmployeeViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.

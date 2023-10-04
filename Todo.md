@@ -25,6 +25,6 @@
   - OK can only set verification status to 'Assigned' if verifier is defined
   - OK can only set verification status to 'Verified' or 'Failed' if a Verifier had been previously assigned
   - OK can only set status to 'Approved' or 'Rejected' if a reviewer and a verifier had been previouly assigned and the verification status is 'Verified'
-  - WIP assign Verifier should change status to Assigned
-  - WIP can only set verification status to Verified if there is Verification Document
+  - OK assign Verifier should change status to Assigned
+  - OK can only set verification status to Verified if there is Verification Document
   - it should save a history of changes
