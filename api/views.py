@@ -44,6 +44,13 @@ def is_assigned(verification_status):
     return verification_status == models.VerificationStatus.ASSIGNED.value
 
 
+def is_verified(verification_status):
+    return verification_status == models.VerificationStatus.VERIFIED.value
+
+# def is_pending(verification_status):
+#     return verification_status == models.VerificationStatus.PENDING.value
+
+
 def is_verification_result_status(verification_status):
     return verification_status == models.VerificationStatus.VERIFIED.value or verification_status == models.VerificationStatus.FAILED.value
 
@@ -91,6 +98,24 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
                 {"detail": "Status can only be 'Approved' or 'Rejected' if a reviewer and a verifier had been previouly assigned and the verification status is 'Verified'."},
             )
 
+        # if is_verified(verification_status):
+        #     verification_documents = models.VerificationDocument.objects.filter(
+        #         loan_application=instance)
+
+        #     if len(verification_documents) == 0:
+        #         raise rest_serializers.ValidationError(
+        #             {"detail": "Verification status can only be 'Verified' if there is at least one verification document."},
+        #         )
+
+        # if instance.verification_status is models.VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
+        #     serializer.save(
+        #         status=models.Status.NEW.value,
+        #         verification_status=models.VerificationStatus.ASSIGNED.value,
+        #         reviewer=None,
+        #         verifier=verifier,
+        #     )
+
+        # TODO: Check if the other fields are being updated
         if status is models.Status.NEW.value:
             serializer.save(status=models.Status.NEW.value,
                             verification_status=models.VerificationStatus.PENDING.value,
