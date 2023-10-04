@@ -65,19 +65,23 @@ def create_loan_application(**params):
     return loan_application
 
 
-class LoanApplicationApiTests(TestCase):
+class ListLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
         self.user = create_user()
         self.client.force_authenticate(self.user)
 
-    def test_retrieve_loan_applications(self):
+    def test_should_list(self):
         create_loan_application(loan_amount=22)
-        create_loan_application(loan_amount=33)
 
         res = self.client.get(LOAN_APPLICATIONS_URL)
 
-        # ingredients = Ingredient.objects.all().order_by('-name')
-        # serializer = IngredientSerializer(ingredients, many=True)
+        loan_applications = models.LoanApplication.objects.all()
+        serializer = serializers.LoanApplicationSerializer(
+            loan_applications, many=True)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         # self.assertEqual(res.data, serializer.data)
+        # self.assertEqual(res.data['count'], 1)
+        # self.assertEqual(res.data['next'], None)
+        # self.assertEqual(res.data['previous'], None)
+        self.assertEqual(res.data['results'], serializer.data)
