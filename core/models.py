@@ -1,5 +1,4 @@
 from django.db import models
-from enum import Enum
 
 
 class BaseModel(models.Model):
@@ -38,16 +37,3 @@ class Role(BaseModel):
 
 class Employee(Person):
     role = models.ForeignKey(Role, on_delete=models.CASCADE)
-
-
-class Status(Enum):
-    NEW = 0
-    APPROVED = 1
-    REJECTED = 2
-
-
-class VerificationStatus(Enum):
-    PENDING = 0
-    ASSIGNED = 1
-    VERIFIED = 2
-    FAILED = 3

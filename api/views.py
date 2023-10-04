@@ -1,14 +1,13 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets, permissions, status as rest_status, serializers as rest_serializers
-from rest_framework.response import Response
+from rest_framework import viewsets, permissions, serializers as rest_serializers
 from api import serializers
 from core import models
-from loan_application.models import LoanApplication
+from loan_application.models import LoanApplication, Status, VerificationStatus
 from verification_document.models import VerificationDocument
 
 
 def is_result_status(status):
-    return status is models.Status.APPROVED.value or status is models.Status.REJECTED.value
+    return status is Status.APPROVED.value or status is Status.REJECTED.value
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -39,22 +38,22 @@ class CustomerViewSet(viewsets.ModelViewSet):
 
 
 def is_result_status(status):
-    return status is models.Status.APPROVED.value or status is models.Status.REJECTED.value
+    return status is Status.APPROVED.value or status is Status.REJECTED.value
 
 
 def is_assigned(verification_status):
-    return verification_status == models.VerificationStatus.ASSIGNED.value
+    return verification_status == VerificationStatus.ASSIGNED.value
 
 
 def is_verified(verification_status):
-    return verification_status == models.VerificationStatus.VERIFIED.value
+    return verification_status == VerificationStatus.VERIFIED.value
 
 # def is_pending(verification_status):
-#     return verification_status == models.VerificationStatus.PENDING.value
+#     return verification_status == VerificationStatus.PENDING.value
 
 
 def is_verification_result_status(verification_status):
-    return verification_status == models.VerificationStatus.VERIFIED.value or verification_status == models.VerificationStatus.FAILED.value
+    return verification_status == VerificationStatus.VERIFIED.value or verification_status == VerificationStatus.FAILED.value
 
 
 class LoanApplicationViewSet(viewsets.ModelViewSet):
@@ -71,8 +70,8 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(
-            status=models.Status.NEW.value,
-            verification_status=models.VerificationStatus.PENDING.value,
+            status=Status.NEW.value,
+            verification_status=VerificationStatus.PENDING.value,
             reviewer=None,
             verifier=None
         )
@@ -115,18 +114,18 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
                     {"detail": "Verification status can only be 'Verified' if there is at least one verification document."},
                 )
 
-        if instance.verification_status is models.VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
+        if instance.verification_status is VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
             serializer.save(
-                status=models.Status.NEW.value,
-                verification_status=models.VerificationStatus.ASSIGNED.value,
+                status=Status.NEW.value,
+                verification_status=VerificationStatus.ASSIGNED.value,
                 reviewer=None,
                 verifier=verifier,
             )
 
         # TODO: Check if the other fields are being updated
-        if status is models.Status.NEW.value:
-            serializer.save(status=models.Status.NEW.value,
-                            verification_status=models.VerificationStatus.PENDING.value,
+        if status is Status.NEW.value:
+            serializer.save(status=Status.NEW.value,
+                            verification_status=VerificationStatus.PENDING.value,
                             reviewer=None,
                             verifier=None)
 

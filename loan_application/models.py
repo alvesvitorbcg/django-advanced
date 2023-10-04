@@ -1,5 +1,19 @@
+from enum import Enum
 from django.db import models
-from core.models import BaseModel, Customer, Employee, Role, Status, VerificationStatus
+from core.models import BaseModel, Customer, Employee
+
+
+class Status(Enum):
+    NEW = 0
+    APPROVED = 1
+    REJECTED = 2
+
+
+class VerificationStatus(Enum):
+    PENDING = 0
+    ASSIGNED = 1
+    VERIFIED = 2
+    FAILED = 3
 
 
 class LoanApplication(BaseModel):

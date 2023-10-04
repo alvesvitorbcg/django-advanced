@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from core.models import VerificationStatus, Customer, Employee, Role, Status
-from loan_application.models import LoanApplication
+from core.models import Customer, Employee, Role
+from loan_application.models import LoanApplication, Status, VerificationStatus
 from verification_document.models import VerificationDocument
 
 
