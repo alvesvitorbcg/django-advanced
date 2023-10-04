@@ -1,29 +1,29 @@
 ## Boilerplate
 
-- Create Django application
-- Install Rest framework
+- OK Create Django application
+- OK Install Rest framework
 
 ## Models
 
-- Create Customer Model
-- Create Employee Model
-- Create Role Model
-- Create Verification Document Model
-- Create Loan Application Model
-- Create Loan Application History Model
+- OK Create Customer Model
+- OK Create Employee Model
+- OK Create Role Model
+- OK Create Verification Document Model
+- OK Create Loan Application Model
+- TODO Create Loan Application History Model
 
 ## Endpoints
 
-- Create Endpoint For inserting new Customer
-  -
-- Create Endpoint For inserting new Loan Application
-  - status: new
-  - verification_status: pending
-- Create Endpoint to list Loan Applications
+- OK Create Endpoint For inserting new Customer
+- OK Create Endpoint For inserting new Loan Application
+  - OK status can't be an input, it should be set to new
+  - OK verification_status can't be an input, it should be set to pending
+- OK Create Endpoint to list Loan Applications
 
-- Create Endpoint For updating Loan Application (should save history of changes):
-  - assign Verifier
-    - change status to Assigned
+- WIP Create Endpoint For updating Loan Application:
+  - OK assign Verifier
+    - OK change status to Assigned
   - change Verification Status to Verified and insert Verification Document
-  - assign Reviewer
-  - Change Status to Approved, Rejected or New
+  - OK assign Reviewer
+  - OK Change Status to Approved, Rejected or New
+  - it shuold save a history of changes

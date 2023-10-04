@@ -8,10 +8,10 @@
 docker-compose up -d
 ```
 
-- Create Database by running restore.sql with the command:
+- Apply migrations with:
 
 ```sh
-psql --host=localhost -U postgres -W  -f physical_verification_data/restore.sql
+python manage.py migrate
 ```
 
 ## Setting up local environment
