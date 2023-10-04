@@ -59,10 +59,10 @@ class LoanApplicationSerializer(serializers.ModelSerializer):
         if (validated_data.get('verification_status') is VerificationStatus.VERIFIED.value and instance.verifier is None):
             raise BadRequest(
                 "Verification status cannot be changed to VERIFIED because it was not assigned to verifier")
-        documents = VerificationDocument.objects.filter(
-            loan_application=instance)
-        print(documents)
-        if (validated_data.get('verification_status') is VerificationStatus.VERIFIED.value and (instance.verifier is None or documents.count() == 0)):
+        # documents = VerificationDocument.objects.filter(
+        #     loan_application=instance)
+        # print(documents)
+        if (validated_data.get('verification_status') is VerificationStatus.VERIFIED.value and instance.verifier is None):
             raise BadRequest(
                 "Verification status cannot be changed to VERIFIED because it was not assigned to verifier")
 
