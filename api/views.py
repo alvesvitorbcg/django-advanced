@@ -40,6 +40,17 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.LoanApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    """"
+    Performs create operation with enforced property values
+    """
+
+    def perform_create(self, serializer):
+
+        serializer.save(status=models.Status.NEW.value,
+                        verification_status=models.VerificationStatus.PENDING.value,
+                        reviewer=None,
+                        verifier=None)
+
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     """

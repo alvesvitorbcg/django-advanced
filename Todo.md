@@ -10,7 +10,7 @@
 - OK Create Role Model
 - OK Create Verification Document Model
 - OK Create Loan Application Model
-- TODO Create Loan Application History Model
+- OK Create Loan Application History Model
 
 ## Endpoints
 
