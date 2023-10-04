@@ -8,6 +8,12 @@
 docker-compose up -d
 ```
 
+- Apply migrations with:
+
+```sh
+python manage.py migrate
+```
+
 ## Setting up local environment
 
 - Create virtual environment

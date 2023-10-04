@@ -25,19 +25,26 @@ class Person(BaseModel):
 
 
 class Customer(Person):
+    # TODO: verify how to define a class that inhertis from another class and doesnt define anything else
     def __str__(self):
         return self.first_name
 
 
 class Role(BaseModel):
-    role_type = models.CharField(default=None, max_length=100)
+    role_type = models.CharField(max_length=100)
 
     def __str__(self):
         return self.role_type
 
 
 class Employee(Person):
-    role_id = models.ForeignKey(Role, on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, on_delete=models.CASCADE)
+
+    # @property
+    # def role_id(self):
+    #     if self.role:
+    #         return self.role.id
+    #     return None
 
 
 class Status(Enum):
@@ -68,29 +75,29 @@ class LoanApplication(BaseModel):
     verifier = models.ForeignKey(
         Employee, on_delete=models.SET_NULL, null=True, blank=True, related_name='verifier')
 
-    @property
-    def reviewer_id(self):
-        if self.reviewer:
-            return self.reviewer.id
-        return None
+    # @property
+    # def reviewer_id(self):
+    #     if self.reviewer:
+    #         return self.reviewer.id
+    #     return None
 
-    @property
-    def manager_id(self):
-        if self.manager:
-            return self.manager.id
-        return None
+    # @property
+    # def manager_id(self):
+    #     if self.manager:
+    #         return self.manager.id
+    #     return None
 
-    @property
-    def customer_id(self):
-        if self.customer:
-            return self.customer.id
-        return None
+    # @property
+    # def customer_id(self):
+    #     if self.customer:
+    #         return self.customer.id
+    #     return None
 
-    @property
-    def verifier_id(self):
-        if self.verifier:
-            return self.verifier.id
-        return None
+    # @property
+    # def verifier_id(self):
+    #     if self.verifier:
+    #         return self.verifier.id
+    #     return None
 
 
 class VerificationDocument(BaseModel):
@@ -99,8 +106,8 @@ class VerificationDocument(BaseModel):
         LoanApplication, on_delete=models.SET_NULL, null=True, blank=True)
     file_path = models.CharField(max_length=100)
 
-    @property
-    def loan_application_id(self):
-        if self.loan_application:
-            return self.loan_application.id
-        return None
+    # @property
+    # def loan_application_id(self):
+    #     if self.loan_application:
+    #         return self.loan_application.id
+    #     return None
