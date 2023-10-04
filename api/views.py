@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework import viewsets, permissions, status, serializers as rest_serializers
+from rest_framework.response import Response
 from api import serializers
 from api import models
 
@@ -45,11 +45,25 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     """
 
     def perform_create(self, serializer):
+        serializer.save(
+            status=models.Status.NEW.value,
+            verification_status=models.VerificationStatus.PENDING.value,
+            reviewer=None,
+            verifier=None
+        )
 
-        serializer.save(status=models.Status.NEW.value,
-                        verification_status=models.VerificationStatus.PENDING.value,
-                        reviewer=None,
-                        verifier=None)
+    def perform_update(self, serializer):
+        verifier = serializer.validated_data.get('verifier')
+        reviewer = serializer.validated_data.get('reviewer')
+        verification_status = serializer.validated_data.get(
+            'verification_status')
+
+        if verification_status == models.VerificationStatus.ASSIGNED.value and verifier is None:
+            raise rest_serializers.ValidationError(
+                {"detail": "Verification status can only be 'Assigned' if a verifier is specified."},
+            )
+
+        serializer.save()
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
