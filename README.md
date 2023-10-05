@@ -47,3 +47,11 @@ python manage.py runserver
 ```
 
 - The database seed files insert a default `admin` user with password `1234`
+
+## Running tests
+
+- To run tests and see coverage use the command:
+
+```sh
+coverage run ./manage.py test && coverage report -m
+```

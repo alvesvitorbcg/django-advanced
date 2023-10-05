@@ -47,6 +47,9 @@ class LoanApplication(BaseModel):
     def is_verification_status_verified(self):
         return self.verification_status is VerificationStatus.VERIFIED.value
 
+    def __str__(self) -> str:
+        return f'{self.id}_{self.customer}_{self.date_created}'
+
 
 class LoanApplicationHistory(LoanApplication):
     loan_application = models.ForeignKey(
