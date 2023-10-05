@@ -1,5 +1,5 @@
 PATH_TO_SONAR=$1
-coverage run ./manage.py test && coverage report -m
+coverage run ./manage.py test src && coverage report -m
 $PATH_TO_SONAR/sonar-scanner \
 -Dsonar.projectKey=physical-verification-system \
 -Dsonar.sources=src/ \
