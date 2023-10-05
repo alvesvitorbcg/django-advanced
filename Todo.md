@@ -33,3 +33,4 @@
 - Integration Tests
   - OK Create Loan Application
   - OK List Loan Application
+  - OK Update Loan Application

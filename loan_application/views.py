@@ -12,15 +12,8 @@ def is_assigned(verification_status):
     return verification_status == VerificationStatus.ASSIGNED.value
 
 
-def is_result_status(status):
-    return status is Status.APPROVED.value or status is Status.REJECTED.value
-
-
 def is_verified(verification_status):
     return verification_status == VerificationStatus.VERIFIED.value
-
-# def is_pending(verification_status):
-#     return verification_status == VerificationStatus.PENDING.value
 
 
 def is_verification_result_status(verification_status):

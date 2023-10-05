@@ -124,6 +124,29 @@ class UpdateStatusLoanApplicationApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data['status'], Status.APPROVED.value)
 
+    def test_application_is_reset_initial_state_when_status_is_changed_to_new(self):
+        loan_application = create_loan_application()
+        loan_application.verifier = create_employee()
+        loan_application.reviewer = create_employee()
+        loan_application.verification_status = VerificationStatus.VERIFIED.value
+        loan_application.status = Status.APPROVED.value
+        loan_application.save()
+
+        request_body = {
+            "status": Status.NEW.value
+        }
+
+        url = detail_url(loan_application.id)
+
+        res = self.client.patch(url, request_body)
+
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+        self.assertEqual(res.data['status'], Status.NEW.value)
+        self.assertEqual(res.data['verification_status'],
+                         VerificationStatus.PENDING.value)
+        self.assertEqual(res.data['reviewer'], None)
+        self.assertEqual(res.data['verifier'], None)
+
 
 class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
     def setUp(self):

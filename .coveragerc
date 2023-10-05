@@ -1,0 +1,3 @@
+[run]
+source=loan_application, core, api, customer, employee
+omit=*/tests/*, */migrations/*, */__init__.py
