@@ -1,4 +1,22 @@
-# Database
+## Setting up local environment
+
+- Create virtual environment
+
+```bash
+python -m venv venv
+```
+
+- Activate virtual environment with
+
+```sh
+source venv/bin/activate
+```
+
+- Run Script for installing dependencies
+
+```sh
+bash install-deps.sh
+```
 
 ## Initializing Database
 
@@ -14,16 +32,18 @@ docker-compose up -d
 python manage.py migrate
 ```
 
-## Setting up local environment
-
-- Create virtual environment
-
-```bash
-python -m venv venv
-```
-
-- Run Script for installing dependencies
+- Seed Database by running
 
 ```sh
-bash install-deps.sh
+bash db-seed/run_db_seed.sh`:
 ```
+
+## Running the application
+
+- Run the command below to run the application:
+
+```sh
+python manage.py runserver
+```
+
+- The database seed files insert a default `admin` user with password `1234`
