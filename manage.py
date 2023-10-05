@@ -4,11 +4,13 @@ import os
 import sys
 from dotenv import load_dotenv
 
-load_dotenv() 
+load_dotenv()
+
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'physical_verification_project.settings')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE',
+                          'physical_verification_project.settings')
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -17,6 +19,8 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+    sys.path.insert(0, os.path.abspath(
+        os.path.join(os.path.dirname(__file__), 'src')))
     execute_from_command_line(sys.argv)
 
 
