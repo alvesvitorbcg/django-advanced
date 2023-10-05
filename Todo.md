@@ -12,19 +12,25 @@
 - OK Create Loan Application Model
 - OK Create Loan Application History Model
 
-## Endpoints
+## Tasks
 
 - OK Implement ModelViewSet for all models
 
-- WIP Endpoint For inserting new Loan Application
+- OK Endpoint For inserting new Loan Application
 
   - OK status should be set to new
   - OK verification_status should be set to pending
 
 - WIP Endpoint For updating Loan Application:
+
   - OK can only set verification status to 'Assigned' if verifier is defined
   - OK can only set verification status to 'Verified' or 'Failed' if a Verifier had been previously assigned
   - OK can only set status to 'Approved' or 'Rejected' if a reviewer and a verifier had been previouly assigned and the verification status is 'Verified'
   - OK assign Verifier should change status to Assigned
   - OK can only set verification status to Verified if there is Verification Document
   - it should save a history of changes
+
+- Integration Tests
+  - OK Create Loan Application
+  - OK List Loan Application
+  - OK Update Loan Application
