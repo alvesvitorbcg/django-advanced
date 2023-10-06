@@ -31,7 +31,7 @@ class VerificationDocumentViewSet(viewsets.ModelViewSet):
     queryset = VerificationDocument.objects.all()
     serializer_class = serializers.VerificationDocumentSerializer
     permission_classes = [
-        permissions.IsAuthenticated, IsUserVerifierOrReviewer]
+        permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         loan_application = serializer.validated_data['loan_application']
@@ -41,3 +41,10 @@ class VerificationDocumentViewSet(viewsets.ModelViewSet):
             )
         else:
             serializer.save()
+
+    def get_permissions(self):
+        permission_classes = [permissions.IsAuthenticated]
+        if self.action == 'create':
+            permission_classes.append(IsUserVerifierOrReviewer)
+
+        return [permission() for permission in permission_classes]
