@@ -2,6 +2,7 @@ from rest_framework import viewsets, permissions, serializers as rest_serializer
 from api import serializers
 from loan_application.models import LoanApplication, Status, VerificationStatus
 from verification_document.models import VerificationDocument
+from employee.models import Employee, Roles
 
 
 def is_result_status(status):
@@ -31,6 +32,28 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     """"
     Performs create operation with enforced property values
     """
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if (user.is_superuser):
+            return self.queryset
+
+        employee = Employee.objects.filter(user=user).first()
+
+        if employee is None:
+            raise ValueError("User is not employee")
+
+        if employee.role.role_type == Roles.VERIFIER.name:
+            return self.queryset.filter(verifier=employee)
+
+        elif employee.role.role_type == Roles.REVIEWER.name:
+            return self.queryset.filter(reviewer=employee)
+
+        if employee.role.role_type == Roles.MANAGER.name:
+            return self.queryset.filter(manager=employee)
+        else:
+            raise ValueError("Employee role is not valid")
 
     def perform_create(self, serializer):
         serializer.save(
