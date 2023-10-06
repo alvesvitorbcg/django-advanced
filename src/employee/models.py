@@ -29,4 +29,3 @@ def create_user_for_employee(sender, instance, created, **kwargs):
             username=username, password=password, email=email)
         instance.user = user
         instance.save()
-        print(f"Created user {username} with password {password}")
