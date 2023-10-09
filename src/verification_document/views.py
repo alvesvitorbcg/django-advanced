@@ -1,5 +1,6 @@
 from rest_framework import viewsets, permissions
 from api import serializers
+from verification_document.constants import Errors
 from verification_document.models import VerificationDocument
 from loan_application.models import VerificationStatus, LoanApplication
 from rest_framework.serializers import ValidationError
@@ -37,8 +38,7 @@ class VerificationDocumentViewSet(viewsets.ModelViewSet):
         loan_application = serializer.validated_data['loan_application']
         if loan_application.verification_status != VerificationStatus.ASSIGNED.value:
             raise ValidationError(
-                {"detail": "Verification status must be 'Assigned' before a verification document can be created."},
-            )
+                Errors.CREATING_DOCUMENT_IS_ONLY_ALLOWED_FOR_ASSIGNED_LOAN_APPLICATIONS)
         else:
             serializer.save()
 

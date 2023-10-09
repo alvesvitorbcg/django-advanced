@@ -76,22 +76,22 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
 
         if is_assigned(verification_status) and not instance.has_verifier and verifier is None:
             raise ValidationError(
-                {"detail": Errors.VERIFICATION_STATUS_CANT_BE_ASSIGNED_WITHOUT_VERIFIER},
+                Errors.VERIFICATION_STATUS_CANT_BE_ASSIGNED_WITHOUT_VERIFIER,
             )
 
         if is_verification_result_status(verification_status) and not instance.has_verifier:
             raise ValidationError(
-                {"detail": Errors.VERIFICATION_STATUS_CANT_BE_DECIDED_WITHOUT_VERIFIER},
+                Errors.VERIFICATION_STATUS_CANT_BE_DECIDED_WITHOUT_VERIFIER,
             )
 
         if is_result_status(status) and (not instance.has_reviewer or not instance.has_verifier or not instance.is_verification_status_verified):
             raise ValidationError(
-                {"detail": Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER},
+                Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER,
             )
 
         if reviewer is not None and not instance.has_reviewer and not instance.is_verification_status_verified:
             raise ValidationError(
-                {"detail": Errors.REVIEWER_CANT_BE_ASSIGNED_IS_NOT_VERIFIED},
+                Errors.REVIEWER_CANT_BE_ASSIGNED_IS_NOT_VERIFIED,
             )
 
         if is_verified(verification_status):
@@ -100,7 +100,7 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
 
             if len(verification_documents) == 0:
                 raise ValidationError(
-                    {"detail": Errors.VERIFICATION_STATUS_CANT_BE_VERIFIER_WITHOUT_DOCUMENTS},
+                    Errors.VERIFICATION_STATUS_CANT_BE_VERIFIER_WITHOUT_DOCUMENTS,
                 )
 
         if instance.verification_status is VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
