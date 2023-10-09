@@ -1,7 +1,10 @@
-from rest_framework import viewsets, permissions, serializers as rest_serializers
+from rest_framework import viewsets, permissions
 from api import serializers
+from loan_application.constants import Errors
 from loan_application.models import LoanApplication, Status, VerificationStatus
 from verification_document.models import VerificationDocument
+from employee.models import Employee, Roles
+from rest_framework.exceptions import ValidationError
 
 
 def is_result_status(status):
@@ -32,6 +35,28 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     Performs create operation with enforced property values
     """
 
+    def get_queryset(self):
+        user = self.request.user
+
+        if (user.is_superuser):
+            return self.queryset
+
+        employee = Employee.objects.filter(user=user).first()
+
+        if employee is None:
+            raise ValidationError(Errors.USER_IS_NOT_EMPLOYEE)
+
+        if employee.role.role_type == Roles.VERIFIER.name:
+            return self.queryset.filter(verifier=employee)
+
+        elif employee.role.role_type == Roles.REVIEWER.name:
+            return self.queryset.filter(reviewer=employee)
+
+        if employee.role.role_type == Roles.MANAGER.name:
+            return self.queryset.filter(manager=employee)
+        else:
+            raise ValidationError(Errors.ROLE_NOT_VALID)
+
     def perform_create(self, serializer):
         serializer.save(
             status=Status.NEW.value,
@@ -50,23 +75,23 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
             'status')
 
         if is_assigned(verification_status) and not instance.has_verifier and verifier is None:
-            raise rest_serializers.ValidationError(
-                {"detail": "Verification status can only be 'Assigned' if a Verifier is assigned to the Loan Application."},
+            raise ValidationError(
+                Errors.VERIFICATION_STATUS_CANT_BE_ASSIGNED_WITHOUT_VERIFIER,
             )
 
         if is_verification_result_status(verification_status) and not instance.has_verifier:
-            raise rest_serializers.ValidationError(
-                {"detail": "Verification status can only be 'Verified' or 'Failed' if a Verifier had been previously assigned."},
+            raise ValidationError(
+                Errors.VERIFICATION_STATUS_CANT_BE_DECIDED_WITHOUT_VERIFIER,
             )
 
         if is_result_status(status) and (not instance.has_reviewer or not instance.has_verifier or not instance.is_verification_status_verified):
-            raise rest_serializers.ValidationError(
-                {"detail": "Status can only be 'Approved' or 'Rejected' if a reviewer and a verifier had been previouly assigned and the verification status is 'Verified'."},
+            raise ValidationError(
+                Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER_VERIFIER_OR_VERIFIED_STATUS,
             )
 
         if reviewer is not None and not instance.has_reviewer and not instance.is_verification_status_verified:
-            raise rest_serializers.ValidationError(
-                {"detail": "Reviewer can only be assigned if the verification status is 'Verified'."},
+            raise ValidationError(
+                Errors.REVIEWER_CANT_BE_ASSIGNED_IF_NOT_VERIFIED,
             )
 
         if is_verified(verification_status):
@@ -74,8 +99,8 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
                 loan_application=instance)
 
             if len(verification_documents) == 0:
-                raise rest_serializers.ValidationError(
-                    {"detail": "Verification status can only be 'Verified' if there is at least one verification document."},
+                raise ValidationError(
+                    Errors.VERIFICATION_STATUS_CANT_BE_VERIFIED_WITHOUT_DOCUMENTS,
                 )
 
         if instance.verification_status is VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:

@@ -2,17 +2,17 @@ from django.contrib.auth import get_user_model
 
 from loan_application.models import LoanApplication
 from customer.models import Customer
-from employee.models import Employee, Role
+from employee.models import Employee, Role, Roles
 from verification_document.models import VerificationDocument
 
 
-def create_user(email='sample@example.com', password='passtest123'):
-    return get_user_model().objects.create_user(username=email, email=email, password=password)
+def create_user(email='sample@example.com', password='passtest123', is_superuser=False):
+    return get_user_model().objects.create_user(username=email, email=email, password=password, is_superuser=is_superuser)
 
 
 def create_role(**params):
     defaults = {
-        "role_type": "Manager"
+        "role_type": Roles.MANAGER.name
     }
     defaults.update(params)
     return Role.objects.create(**defaults)
@@ -28,8 +28,8 @@ def create_verification_document(loan_application, **params):
     return VerificationDocument.objects.create(**defaults)
 
 
-def create_employee(**params):
-    role = create_role()
+def create_employee(role_type=Roles.MANAGER.name, **params):
+    role = create_role(role_type=role_type)
     defaults = {
         "first_name": "Maria",
         "middle_name": "Mac",

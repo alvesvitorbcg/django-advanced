@@ -3,6 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from rest_framework import status
+from loan_application.constants import Errors
 from loan_application.models import Status, VerificationStatus
 from rest_framework.test import APIClient
 from loan_application.tests.utils import create_user, create_employee, create_loan_application, create_verification_document
@@ -17,7 +18,7 @@ def detail_url(id):
 class UpdateReviewerLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(is_superuser=True)
         self.client.force_authenticate(self.user)
 
     def test_doesnt_allow_set_reviewer_if_verification_status_is_not_verified(self):
@@ -35,6 +36,8 @@ class UpdateReviewerLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.REVIEWER_CANT_BE_ASSIGNED_IF_NOT_VERIFIED)
 
     def test_allow_set_reviewer_if_verification_status_is_not_verified(self):
         loan_application = create_loan_application()
@@ -57,7 +60,7 @@ class UpdateReviewerLoanApplicationApiTests(TestCase):
 class UpdateStatusLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(is_superuser=True)
         self.client.force_authenticate(self.user)
 
     def test_doesnt_allow_set_status_approved_if_application_has_no_verifier(self):
@@ -72,6 +75,8 @@ class UpdateStatusLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER_VERIFIER_OR_VERIFIED_STATUS)
 
     def test_doesnt_allow_set_status_approved_if_application_has_no_reviewer(self):
         loan_application = create_loan_application()
@@ -88,6 +93,8 @@ class UpdateStatusLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER_VERIFIER_OR_VERIFIED_STATUS)
 
     def test_doesnt_allow_set_status_approved_if_application_verification_status_is_not_verified(self):
         loan_application = create_loan_application()
@@ -105,6 +112,8 @@ class UpdateStatusLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER_VERIFIER_OR_VERIFIED_STATUS)
 
     def test_allows_set_status_approved_if_application_verification_status_is_verified_and_reviewer_assigned(self):
         loan_application = create_loan_application()
@@ -151,7 +160,7 @@ class UpdateStatusLoanApplicationApiTests(TestCase):
 class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(is_superuser=True)
         self.client.force_authenticate(self.user)
 
     def test_doesnt_allow_set_verification_status_to_assigned_without_verifier(self):
@@ -165,6 +174,8 @@ class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
 
         res = self.client.patch(url, request_body)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.VERIFICATION_STATUS_CANT_BE_ASSIGNED_WITHOUT_VERIFIER)
 
     def test_allow_set_verification_status_to_assigned_if_request_also_contains_verifier(self):
         loan_application = create_loan_application()
@@ -214,6 +225,8 @@ class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.VERIFICATION_STATUS_CANT_BE_DECIDED_WITHOUT_VERIFIER)
 
     def test_doesnt_allow_set_verification_status_to_verified_if_application_hadnt_been_assigned_to_verifier(self):
         loan_application = create_loan_application()
@@ -227,6 +240,8 @@ class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.VERIFICATION_STATUS_CANT_BE_DECIDED_WITHOUT_VERIFIER)
 
     def test_doesnt_allow_set_verification_status_to_verified_if_application_has_no_uploaded_verification_document(self):
         loan_application = create_loan_application()
@@ -243,6 +258,8 @@ class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
         res = self.client.patch(url, request_body)
 
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(
+            res.data[0], Errors.VERIFICATION_STATUS_CANT_BE_VERIFIED_WITHOUT_DOCUMENTS)
 
     def test_allow_set_verification_status_to_verified_if_application_has_uploaded_verification_document(self):
         loan_application = create_loan_application()

@@ -6,10 +6,6 @@ from loan_application.models import LoanApplication
 from verification_document.models import VerificationDocument
 
 
-class BadRequest(BaseException):
-    pass
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
