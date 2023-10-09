@@ -104,18 +104,19 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
                 )
 
         if instance.verification_status is VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
-            serializer.save(
+            serializer.validated_data.update(
                 status=Status.NEW.value,
                 verification_status=VerificationStatus.ASSIGNED.value,
                 reviewer=None,
                 verifier=verifier,
             )
 
-        # TODO: Check if the other fields are being updated
         if status is Status.NEW.value:
-            serializer.save(status=Status.NEW.value,
-                            verification_status=VerificationStatus.PENDING.value,
-                            reviewer=None,
-                            verifier=None)
+            serializer.validated_data.update(
+                status=Status.NEW.value,
+                verification_status=VerificationStatus.PENDING.value,
+                reviewer=None,
+                verifier=None,
+            )
 
         serializer.save()
