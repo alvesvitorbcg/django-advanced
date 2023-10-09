@@ -86,12 +86,12 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
 
         if is_result_status(status) and (not instance.has_reviewer or not instance.has_verifier or not instance.is_verification_status_verified):
             raise ValidationError(
-                Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER,
+                Errors.STATUS_CANT_BE_DECIDED_WITHOUT_REVIEWER_VERIFIER_OR_VERIFIED_STATUS,
             )
 
         if reviewer is not None and not instance.has_reviewer and not instance.is_verification_status_verified:
             raise ValidationError(
-                Errors.REVIEWER_CANT_BE_ASSIGNED_IS_NOT_VERIFIED,
+                Errors.REVIEWER_CANT_BE_ASSIGNED_IF_NOT_VERIFIED,
             )
 
         if is_verified(verification_status):
@@ -100,7 +100,7 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
 
             if len(verification_documents) == 0:
                 raise ValidationError(
-                    Errors.VERIFICATION_STATUS_CANT_BE_VERIFIER_WITHOUT_DOCUMENTS,
+                    Errors.VERIFICATION_STATUS_CANT_BE_VERIFIED_WITHOUT_DOCUMENTS,
                 )
 
         if instance.verification_status is VerificationStatus.PENDING.value and instance.verifier is None and verifier is not None:
