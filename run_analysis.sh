@@ -6,5 +6,5 @@ $PATH_TO_SONAR/sonar-scanner \
 -Dsonar.exclusions=**/migrations/** \
 -Dsonar.coverage.exclusions=**/tests/**,**/test*.py,manage.py,**/physical_verification_project/**,**/apps.py, \
 -Dsonar.python.coverage.reportPaths=coverage.xml \
--Dsonar.login=sqp_fa234517e3b80e943a233261e2e0ab2d367ab7df \
--Dsonar.host.url=http://localhost:9000 \
+-Dsonar.login=sqp_654d43271aabbb4c5183e569a892ca05f28b39ac \
+-Dsonar.host.url=http://localhost:9000
