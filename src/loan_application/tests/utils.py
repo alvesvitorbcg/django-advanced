@@ -6,8 +6,8 @@ from employee.models import Employee, Role, Roles
 from verification_document.models import VerificationDocument
 
 
-def create_user(email='sample@example.com', password='passtest123'):
-    return get_user_model().objects.create_user(username=email, email=email, password=password, is_superuser=True)
+def create_user(email='sample@example.com', password='passtest123', is_superuser=False):
+    return get_user_model().objects.create_user(username=email, email=email, password=password, is_superuser=is_superuser)
 
 
 def create_role(**params):

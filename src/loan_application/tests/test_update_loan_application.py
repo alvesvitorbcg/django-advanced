@@ -17,7 +17,7 @@ def detail_url(id):
 class UpdateReviewerLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(is_superuser=True)
         self.client.force_authenticate(self.user)
 
     def test_doesnt_allow_set_reviewer_if_verification_status_is_not_verified(self):
@@ -57,7 +57,7 @@ class UpdateReviewerLoanApplicationApiTests(TestCase):
 class UpdateStatusLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(is_superuser=True)
         self.client.force_authenticate(self.user)
 
     def test_doesnt_allow_set_status_approved_if_application_has_no_verifier(self):
@@ -151,7 +151,7 @@ class UpdateStatusLoanApplicationApiTests(TestCase):
 class UpdateVerificationStatusLoanApplicationApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
+        self.user = create_user(is_superuser=True)
         self.client.force_authenticate(self.user)
 
     def test_doesnt_allow_set_verification_status_to_assigned_without_verifier(self):
