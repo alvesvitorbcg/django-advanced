@@ -82,6 +82,6 @@
 
 ## Postman
 
-- Find under the /.postman/ directory a collection with two folders:
+- Find under the `/postman` directory a collection with two folders:
   - Flow: contains requests for testing real-world process of a loan application on the system e.g. uploading a verification document; setting status as Approved; assign to a Reviewer
   - Other: contains requests for testing permission and role-based access control rules e.g. listing loan applications for a reviewer user should only return those that are assigned to them.
