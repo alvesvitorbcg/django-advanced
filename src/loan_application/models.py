@@ -54,6 +54,8 @@ class LoanApplication(BaseModel):
 
 
 class LoanApplicationHistory(BaseModel):
+    class Meta:
+        ordering = ['-id']
     status = models.IntegerField(default=Status.NEW.value)
     verification_status = models.IntegerField(
         default=VerificationStatus.PENDING.value)

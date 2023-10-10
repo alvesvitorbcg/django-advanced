@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
-from api import serializers
+from api.serializers import LoanApplicationHistorySerializer, LoanApplicationSerializer
 from loan_application.constants import Errors
-from loan_application.models import LoanApplication, Status, VerificationStatus
+from loan_application.models import LoanApplication, Status, VerificationStatus, LoanApplicationHistory
 from verification_document.models import VerificationDocument
 from employee.models import Employee, Roles
 from rest_framework.exceptions import ValidationError
@@ -28,7 +28,7 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
     API endpoint that allows groups to be viewed or edited.
     """
     queryset = LoanApplication.objects.all()
-    serializer_class = serializers.LoanApplicationSerializer
+    serializer_class = LoanApplicationSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     """"
@@ -120,3 +120,8 @@ class LoanApplicationViewSet(viewsets.ModelViewSet):
             )
 
         serializer.save()
+
+
+class LoanApplicationHistoryViewSet(viewsets.ReadOnlyModelViewSet):
+    queryset = LoanApplicationHistory.objects.all()
+    serializer_class = LoanApplicationHistorySerializer
