@@ -4,7 +4,7 @@ from django.urls import reverse
 
 from rest_framework import status
 from loan_application.constants import Errors
-from loan_application.models import Status, VerificationStatus
+from loan_application.enums import Status, VerificationStatus
 from rest_framework.test import APIClient
 from loan_application.tests.utils import create_user, create_employee, create_loan_application, create_verification_document
 

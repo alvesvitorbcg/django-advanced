@@ -2,7 +2,8 @@ from django.contrib.auth import get_user_model
 
 from loan_application.models import LoanApplication
 from customer.models import Customer
-from employee.models import Employee, Role, Roles
+from employee.models import Employee, Role
+from employee.enums import Roles
 from verification_document.models import VerificationDocument
 
 

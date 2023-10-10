@@ -2,10 +2,11 @@ from rest_framework import viewsets, permissions
 from api import serializers
 from verification_document.constants import Errors
 from verification_document.models import VerificationDocument
-from loan_application.models import VerificationStatus, LoanApplication
+from loan_application.enums import VerificationStatus
 from rest_framework.serializers import ValidationError
 from rest_framework.permissions import BasePermission
-from employee.models import Roles, Employee
+from employee.models import Employee
+from employee.enums import Roles
 
 
 class IsUserVerifierOrReviewer(BasePermission):

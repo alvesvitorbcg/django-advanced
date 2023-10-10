@@ -5,8 +5,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APIClient
 from loan_application.tests.utils import create_loan_application, create_employee
-from loan_application.models import VerificationStatus
-from employee.models import Roles
+from loan_application.enums import VerificationStatus
+from employee.enums import Roles
 
 BASE_URL = reverse('verificationdocument-list')
 

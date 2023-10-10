@@ -1,5 +1,5 @@
 from django.test import TestCase
-from employee.models import Roles
+from employee.enums import Roles
 from loan_application.tests.utils import create_employee, create_user
 from verification_document.views import IsUserVerifierOrReviewer
 

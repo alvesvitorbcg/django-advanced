@@ -1,13 +1,6 @@
 from django.db import models
 from core.models import BaseModel, Person
 from django.db import models
-from enum import Enum
-
-
-class Roles(Enum):
-    MANAGER = 1
-    VERIFIER = 2
-    REVIEWER = 3
 
 
 class Role(BaseModel):

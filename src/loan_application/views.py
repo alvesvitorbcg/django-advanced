@@ -1,9 +1,11 @@
 from rest_framework import viewsets, permissions
 from api.serializers import LoanApplicationHistorySerializer, LoanApplicationSerializer
+from employee.enums import Roles
 from loan_application.constants import Errors
-from loan_application.models import LoanApplication, Status, VerificationStatus, LoanApplicationHistory
+from loan_application.models import LoanApplication, LoanApplicationHistory
+from loan_application.enums import Status, VerificationStatus
 from verification_document.models import VerificationDocument
-from employee.models import Employee, Roles
+from employee.models import Employee
 from rest_framework.exceptions import ValidationError
 
 
