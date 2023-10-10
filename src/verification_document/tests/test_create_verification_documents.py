@@ -4,9 +4,9 @@ from django.urls import reverse
 
 from rest_framework import status
 from rest_framework.test import APIClient
-from loan_application.tests.utils import create_user, create_loan_application, create_employee
-from loan_application.models import VerificationStatus
-from employee.models import Roles
+from loan_application.tests.utils import create_loan_application, create_employee
+from loan_application.enums import VerificationStatus
+from employee.enums import Roles
 
 BASE_URL = reverse('verificationdocument-list')
 
@@ -14,13 +14,11 @@ BASE_URL = reverse('verificationdocument-list')
 class CreateVerficationDocumentsApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user()
         self.verifier = create_employee(
             role_type=Roles.VERIFIER.name)
         self.manager = create_employee(role_type=Roles.MANAGER.name)
         self.reviewer = create_employee(
             role_type=Roles.REVIEWER.name)
-        self.client.force_authenticate(self.user)
 
     def test_forbidden_if_user_is_manager(self):
         loan_application = create_loan_application()
@@ -37,7 +35,6 @@ class CreateVerficationDocumentsApiTests(TestCase):
         request_body = self.create_body(loan_application)
 
         res = self.client.post(BASE_URL, request_body)
-
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_allows_if_loan_application_is_assigned_to_verifier_and_user_is_verifier(self):

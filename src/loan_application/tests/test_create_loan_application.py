@@ -4,7 +4,8 @@ from django.urls import reverse
 from api import serializers
 
 from rest_framework import status
-from loan_application.models import Status, VerificationStatus, LoanApplication
+from loan_application.models import LoanApplication
+from loan_application.enums import Status, VerificationStatus
 from rest_framework.test import APIClient
 from loan_application.tests.utils import create_user, create_employee, create_customer
 

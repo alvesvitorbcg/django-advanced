@@ -2,17 +2,14 @@ from rest_framework import viewsets, permissions
 from api import serializers
 from verification_document.constants import Errors
 from verification_document.models import VerificationDocument
-from loan_application.models import VerificationStatus, LoanApplication
+from loan_application.enums import VerificationStatus
 from rest_framework.serializers import ValidationError
 from rest_framework.permissions import BasePermission
-from employee.models import Roles, Employee
+from employee.models import Employee
+from employee.enums import Roles
 
 
 class IsUserVerifierOrReviewer(BasePermission):
-    """
-    Allows access only for employees with Verifier role.
-    """
-
     def has_permission(self, request, view):
         user = request.user
         if user.is_superuser:
@@ -26,9 +23,6 @@ class IsUserVerifierOrReviewer(BasePermission):
 
 
 class VerificationDocumentViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows verification documents to be viewed or edited.
-    """
     queryset = VerificationDocument.objects.all()
     serializer_class = serializers.VerificationDocumentSerializer
     permission_classes = [
