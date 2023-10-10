@@ -21,13 +21,15 @@ from rest_framework import routers
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from customer.views import CustomerViewSet
 from employee.views import EmployeeViewSet, RoleViewSet
-from loan_application.views import LoanApplicationViewSet
+from loan_application.views import LoanApplicationHistoryViewSet, LoanApplicationViewSet
 from verification_document.views import VerificationDocumentViewSet
 router = routers.DefaultRouter()
 
 router.register(r'customers', CustomerViewSet)
 router.register(r'loan-applications', LoanApplicationViewSet)
-router.register(r'verification-documents', VerificationDocumentViewSet)
+router.register(r'loan-applications-history', LoanApplicationHistoryViewSet)
+router.register(r'verification-documents',
+                VerificationDocumentViewSet)
 router.register(r'roles', RoleViewSet)
 router.register(r'employees', EmployeeViewSet)
 
