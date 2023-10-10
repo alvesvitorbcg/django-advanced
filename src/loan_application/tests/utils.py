@@ -69,3 +69,13 @@ def create_loan_application(**params):
     defaults.update(params)
     loan_application = LoanApplication.objects.create(**defaults)
     return loan_application
+
+
+def create_verification_document(loan_application, **params):
+    defaults = {
+        "document_type": 1,
+        "file_path": "path/to/file.pdf",
+        "loan_application": loan_application
+    }
+    defaults.update(params)
+    return VerificationDocument.objects.create(**defaults)
