@@ -6,5 +6,5 @@ class LoanApplicationModelTests(TestCase):
     def test_loan_application_str(self):
         customer = create_customer()
         loan_application = create_loan_application(customer=customer)
-        expected = f'{loan_application.id}_{customer}_{loan_application.date_created}'
+        expected = f'{loan_application.id}_{customer}'
         self.assertEqual(str(loan_application), expected)
