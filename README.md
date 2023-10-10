@@ -53,7 +53,7 @@
 - To run tests and see coverage use the command:
 
   ```sh
-  coverage run ./manage.py test src && coverage report -m
+  coverage run ./manage.py test src && coverage report -m  && coverage xml
   ```
 
 ## Running Sonarqube analysis locally
