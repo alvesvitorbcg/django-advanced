@@ -3,8 +3,6 @@ from django.db import models
 from core.models import BaseModel
 from customer.models import Customer
 from employee.models import Employee
-from django.dispatch import receiver
-from django.db.models.signals import pre_save, post_save
 
 
 class Status(Enum):
@@ -73,11 +71,3 @@ class LoanApplicationHistory(BaseModel):
 
     def __str__(self) -> str:
         return f'{self.id}_LA:{self.loan_application.id}_{self.customer}'
-
-
-@receiver(post_save, sender=LoanApplication)
-def create_loan_application_history(sender, instance, **kwargs):
-    history_instance = LoanApplicationHistory(loan_application=instance)
-    history_instance.__dict__.update(instance.__dict__)
-    history_instance.id = None
-    history_instance.save()
