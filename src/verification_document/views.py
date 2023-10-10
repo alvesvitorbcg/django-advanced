@@ -1,5 +1,5 @@
 from rest_framework import viewsets, permissions
-from api import serializers
+from verification_document.serializers import VerificationDocumentSerializer
 from verification_document.constants import Errors
 from verification_document.models import VerificationDocument
 from loan_application.enums import VerificationStatus
@@ -24,7 +24,7 @@ class IsUserVerifierOrReviewer(BasePermission):
 
 class VerificationDocumentViewSet(viewsets.ModelViewSet):
     queryset = VerificationDocument.objects.all()
-    serializer_class = serializers.VerificationDocumentSerializer
+    serializer_class = VerificationDocumentSerializer
     permission_classes = [
         permissions.IsAuthenticated]
 

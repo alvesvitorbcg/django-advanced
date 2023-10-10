@@ -1,8 +1,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
-from api import serializers
-
+from loan_application.serializers import LoanApplicationSerializer
 from rest_framework import status
 from employee.enums import Roles
 from rest_framework.test import APIClient
@@ -25,7 +24,7 @@ class ListLoanApplicationApiTests(TestCase):
         for _ in range(LOAN_APPLICATIONS_COUNT):
             loan_applications.append(create_loan_application())
 
-        loan_applications = sorted(serializers.LoanApplicationSerializer(
+        loan_applications = sorted(LoanApplicationSerializer(
             loan_applications, many=True).data, key=lambda x: x['id'])
 
         res = self.client.get(LOAN_APPLICATIONS_URL)
@@ -46,7 +45,7 @@ class ListLoanApplicationApiTests(TestCase):
         loan_application_assigned_to_user = create_loan_application(
             manager=authenticated_manager)
 
-        loan_application_assigned_to_user = serializers.LoanApplicationSerializer(
+        loan_application_assigned_to_user = LoanApplicationSerializer(
             loan_application_assigned_to_user, many=False).data
 
         res = self.client.get(LOAN_APPLICATIONS_URL)
@@ -67,7 +66,7 @@ class ListLoanApplicationApiTests(TestCase):
         loan_application_assigned_to_user = create_loan_application(
             reviewer=authenticated_reviewer)
 
-        loan_application_assigned_to_user = serializers.LoanApplicationSerializer(
+        loan_application_assigned_to_user = LoanApplicationSerializer(
             loan_application_assigned_to_user, many=False).data
 
         res = self.client.get(LOAN_APPLICATIONS_URL)
@@ -87,7 +86,7 @@ class ListLoanApplicationApiTests(TestCase):
         loan_application_assigned_to_user = create_loan_application(
             verifier=authenticated_verifier)
 
-        loan_application_assigned_to_user = serializers.LoanApplicationSerializer(
+        loan_application_assigned_to_user = LoanApplicationSerializer(
             loan_application_assigned_to_user, many=False).data
 
         res = self.client.get(LOAN_APPLICATIONS_URL)

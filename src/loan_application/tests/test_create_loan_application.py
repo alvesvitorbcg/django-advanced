@@ -1,8 +1,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
-from api import serializers
-
+from loan_application.serializers import LoanApplicationSerializer
 from rest_framework import status
 from loan_application.models import LoanApplication
 from loan_application.enums import Status, VerificationStatus
@@ -49,7 +48,7 @@ class CreateLoanApplicationApiTests(TestCase):
         inserted_loan_application_object = LoanApplication.objects.filter(
             id=res.data['id']).first()
 
-        inserted_loan_application = serializers.LoanApplicationSerializer(
+        inserted_loan_application = LoanApplicationSerializer(
             inserted_loan_application_object, many=False).data
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)

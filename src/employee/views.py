@@ -1,15 +1,15 @@
 from rest_framework import viewsets, permissions
-from api import serializers
+from employee.serializers import EmployeeSerializer, RoleSerializer
 from employee.models import Employee, Role
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = Employee.objects.all()
-    serializer_class = serializers.EmployeeSerializer
+    serializer_class = EmployeeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
 class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all()
-    serializer_class = serializers.RoleSerializer
+    serializer_class = RoleSerializer
     permission_classes = [permissions.IsAuthenticated]
