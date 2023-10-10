@@ -10,10 +10,6 @@ from employee.enums import Roles
 
 
 class IsUserVerifierOrReviewer(BasePermission):
-    """
-    Allows access only for employees with Verifier role.
-    """
-
     def has_permission(self, request, view):
         user = request.user
         if user.is_superuser:
